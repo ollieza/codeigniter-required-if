@@ -268,7 +268,7 @@ class MY_Form_validation extends CI_Form_validation
 		// The 0 allows radios with 0 value to be seen as 'empty'
 		// This is a bit hacky but is the only easy way to allow radio repopulation with 
 		// a required if rule.
-		if (!isset($_POST[$field]) || ($_POST[$field] == '' || $_POST[$field] == 0))
+		if (!isset($_POST[$field]) || $_POST[$field] === '' || (bool)$_POST[$field] == 0)
 		{
 			return TRUE; // the related form is blank			
 		}
