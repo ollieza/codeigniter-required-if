@@ -1,4 +1,4 @@
-Required if - CodeIgniter
+Required if - CodeIgniter (tested on version 2.1.0)
 =============================================
 
 Extension to the form_validation library to allow a required_if rule.

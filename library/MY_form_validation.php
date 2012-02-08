@@ -27,7 +27,13 @@ class MY_Form_validation extends CI_Form_validation
 
 	/**
 	 * Executes the Validation routines
-	 * Modifications by Ollie Rattue to allow required_if rule
+	 * Modifications to allow required_if rule
+	 *
+	 * @package   codeigniter-required-if
+	 * @author    Ollie Rattue, Too many tabs <orattue[at]toomanytabs.com>
+	 * @copyright Copyright (c) 2011, Ollie Rattue
+	 * @license   http://www.opensource.org/licenses/mit-license.php
+	 * @link      https://github.com/ollierattue/codeigniter-required-if
 	 *
 	 * @access	private
 	 * @param	array
@@ -54,13 +60,13 @@ class MY_Form_validation extends CI_Form_validation
 
 		// If the field is blank, but NOT required, no further tests are necessary
 		$callback = FALSE;
-		
+
 		$required_if = preg_match("/required_if/", implode(' ', $rules), $match);
-		
-		if ( ! in_array('required', $rules) AND ($required_if == 0) AND is_null($postdata))
+
+		if ( ! in_array('required', $rules) AND ($required_if == FALSE) AND is_null($postdata))
 		{
 			// Before we bail out, does the rule contain a callback?
-			if (preg_match("/(callback_\w+)/", implode(' ', $rules), $match))
+			if (preg_match("/(callback_\w+(\[.*?\])?)/", implode(' ', $rules), $match))
 			{
 				$callback = TRUE;
 				$rules = (array('1' => $match[1]));
@@ -74,9 +80,9 @@ class MY_Form_validation extends CI_Form_validation
 		// --------------------------------------------------------------------
 
 		// Isset Test. Typically this rule will only apply to checkboxes.
-		if (is_null($postdata) AND $callback == FALSE AND $required_if == 0)
+		if (is_null($postdata) AND $callback == FALSE AND $required_if == FALSE)
 		{
-			if (in_array('isset', $rules, TRUE) OR in_array('required', $rules) OR ($required_if == 1))
+			if (in_array('isset', $rules, TRUE) OR in_array('required', $rules) OR ($required_if == TRUE))
 			{
 				// Set the message type
 				$type = (in_array('required', $rules)) ? 'required' : 'isset';
@@ -175,7 +181,7 @@ class MY_Form_validation extends CI_Form_validation
 				}
 
 				// If the field isn't required and we just processed a callback we'll move on...
-				if ( ! in_array('required', $rules, TRUE) AND $required_if == 0 AND $result !== FALSE)
+				if ( ! in_array('required', $rules, TRUE) AND $required_if == FALSE AND $result !== FALSE)
 				{
 					continue;
 				}
@@ -199,7 +205,11 @@ class MY_Form_validation extends CI_Form_validation
 							$this->_field_data[$row['field']]['postdata'] = (is_bool($result)) ? $postdata : $result;
 						}
 					}
-
+					else
+					{
+						log_message('debug', "Unable to find validation rule: ".$rule);
+					}
+					
 					continue;
 				}
 
