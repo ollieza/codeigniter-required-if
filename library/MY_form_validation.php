@@ -7,10 +7,7 @@
  * It adds support for a required_if validation rule
  *
  * @package   codeigniter-required-if
- * @author    Ollie Rattue, Too many tabs <orattue[at]toomanytabs.com>
- * @copyright Copyright (c) 2011, Ollie Rattue
  * @license   http://www.opensource.org/licenses/mit-license.php
- * @link      https://github.com/ollierattue/codeigniter-required-if
  */
 
 class MY_Form_validation extends CI_Form_validation
@@ -30,10 +27,7 @@ class MY_Form_validation extends CI_Form_validation
 	 * Modifications to allow required_if rule
 	 *
 	 * @package   codeigniter-required-if
-	 * @author    Ollie Rattue, Too many tabs <orattue[at]toomanytabs.com>
-	 * @copyright Copyright (c) 2011, Ollie Rattue
 	 * @license   http://www.opensource.org/licenses/mit-license.php
-	 * @link      https://github.com/ollierattue/codeigniter-required-if
 	 *
 	 * @access	private
 	 * @param	array
